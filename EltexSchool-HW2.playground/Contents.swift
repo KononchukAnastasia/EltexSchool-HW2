@@ -8,12 +8,12 @@ enum CargoType: Equatable {
 
 struct Cargo {
     let description: String
-    let weight: Int
+    let weight: UInt
     let type: CargoType
     
     init?(
         description: String,
-        weight: Int,
+        weight: UInt,
         type: CargoType
     ) {
         guard weight > 0 else { return nil }
@@ -27,22 +27,22 @@ struct Cargo {
 class Vehicle {
     let make: String
     let model: String
-    let year: Int
-    let capacity: Int
+    let year: UInt
+    let capacity: UInt
     let types: [CargoType]?
-    var currentLoad: Int?
-    let tankVolume: Int
+    var currentLoad: UInt?
+    let tankVolume: UInt
     
     var loadedCargos: [Cargo] = []
     
     init (
         make: String,
         model: String,
-        year: Int,
-        capacity: Int,
+        year: UInt,
+        capacity: UInt,
         types: [CargoType]?,
-        currentLoad: Int,
-        tankVolume: Int
+        currentLoad: UInt,
+        tankVolume: UInt
     ) {
         self.make = make
         self.model = model
@@ -100,7 +100,7 @@ class Vehicle {
     }
     
     // Метод для проверки, можно ли отправить указанный груз на указанное расстояние
-    func canGo(cargo: [Cargo], path: Int) -> Bool {
+    func canGo(cargo: [Cargo], path: UInt) -> Bool {
         // Общий вес груза
         let totalWeight = cargo.reduce(0) { $0 + $1.weight }
         
@@ -124,19 +124,19 @@ class Vehicle {
 
 final class Truck: Vehicle {
     let trailerAttached: Bool
-    let trailerCapacity: Int?
+    let trailerCapacity: UInt?
     let trailerTypes: [CargoType]?
     
     init(
         make: String,
         model: String,
-        year: Int,
-        capacity: Int,
+        year: UInt,
+        capacity: UInt,
         types: [CargoType]?,
-        currentLoad: Int,
-        tankVolume: Int,
+        currentLoad: UInt,
+        tankVolume: UInt,
         trailerAttached: Bool,
-        trailerCapacity: Int?,
+        trailerCapacity: UInt?,
         trailerTypes: [CargoType]?
     ) {
         self.trailerAttached = trailerAttached
@@ -191,12 +191,12 @@ final class Fleet {
     }
     
     // Расчет общей грузоподъемности
-    private func totalCapacity() -> Int {
+    private func totalCapacity() -> UInt {
         vehicles.reduce(0) { $0 + $1.capacity }
     }
     
     // Расчет текущей нагрузки
-    private func totalCurrentLoad() -> Int {
+    private func totalCurrentLoad() -> UInt {
         vehicles.reduce(0) { $0 + ($1.currentLoad ?? 0) }
     }
 }
